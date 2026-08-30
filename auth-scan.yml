@@ -1,0 +1,31 @@
+name: Auth Scanner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    name: Scan authentication and editor routes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Auth Scanner
+        run: node find-auth.js
+
+      - name: Upload scanner reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-scanner-reports
+          path: |
+            auth-report.txt
+            auth-report.html
+          if-no-files-found: warn
