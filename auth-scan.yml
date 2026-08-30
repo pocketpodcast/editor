@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Run Auth Scanner
-        run: node find-auth.js
+        run: node find-auth.cjs
 
       - name: Upload scanner reports
         if: always()
